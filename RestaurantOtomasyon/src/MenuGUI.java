@@ -40,7 +40,7 @@ public class MenuGUI {
             panelKategori.add(label);
         }
 
-        JButton btnBack = new JButton("Geri Dön");
+        JButton btnBack = new JButton("Hesapla ");
         btnBack.addActionListener(e -> new MenuGUI(frame, menu));
         panelKategori.add(btnBack);
 

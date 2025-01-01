@@ -31,6 +31,7 @@ public class Menu {
         tatlilar.put("Magnolia", 25.0);
         tatlilar.put("Sütlaç", 20.0);
         urunler.put("Tatlı", tatlilar);
+        
     }
 
     public Map<String, Double> getKategori(String kategori) {

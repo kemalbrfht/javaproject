@@ -11,7 +11,7 @@ public class RestoranOtomasyonuGUI {
         restoran = new RestoranYonetimi();
         menu = new Menu();
         frame = new JFrame("Restoran Otomasyonu");
-        frame.setSize(600, 400);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
@@ -21,18 +21,18 @@ public class RestoranOtomasyonuGUI {
 
     public void initMainMenu() {
         JPanel mainMenu = new JPanel(new GridLayout(3, 1, 10, 10));
-
+        
         JButton btnMasalar = new JButton("Masaları Listele");
-        JButton btnMenu = new JButton("Menüyü Görüntüle");
-        JButton btnCikis = new JButton("Çıkış");
+       // JButton btnMenu = new JButton("Menüyü Görüntüle");
+        //JButton btnCikis = new JButton("Çıkış");
 
         btnMasalar.addActionListener(e -> new MasalarGUI(frame, restoran, menu));
-        btnMenu.addActionListener(e -> new MenuGUI(frame, menu));
-        btnCikis.addActionListener(e -> System.exit(0));
+        //btnMenu.addActionListener(e -> new MenuGUI(frame, menu));
+        //btnCikis.addActionListener(e -> System.exit(0));
 
         mainMenu.add(btnMasalar);
-        mainMenu.add(btnMenu);
-        mainMenu.add(btnCikis);
+        //mainMenu.add(btnMenu);
+        //mainMenu.add(btnCikis);
 
         frame.setContentPane(mainMenu);
         frame.revalidate();
