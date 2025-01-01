@@ -17,7 +17,7 @@ public class MasaYonetimGUI {
         centerPanel.add(new SiparisDurumuGUI(frame, masa).getPanel(), BorderLayout.CENTER);
 
         // Sağ Panel (Sipariş Ver)
-        JPanel rightMenu = new JPanel(new GridLayout(3, 1, 10, 10));
+        JPanel rightMenu = new JPanel(new GridLayout(0, 1, 10, 10));
         rightMenu.add(new SiparisVerGUI(frame, masa, menu).getPanel());
 
         // Alt Panel (Hesap ve İşlemler)

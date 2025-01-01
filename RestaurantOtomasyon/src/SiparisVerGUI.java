@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
@@ -6,7 +5,6 @@ import java.util.Map;
 public class SiparisVerGUI {
     private JFrame frame;
     private JPanel panelGorsel;
-
 
     public SiparisVerGUI(JFrame frame, Masa masa, Menu menu) {
         this.frame = frame;
@@ -17,14 +15,15 @@ public class SiparisVerGUI {
         // Sol Menü (Kategoriler)
         JPanel leftMenu = new JPanel();
         leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
-        leftMenu.setBackground(new Color(51, 51, 51));
+        leftMenu.setPreferredSize(new Dimension(200, frame.getHeight()));
+        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
 
         leftMenu.add(createCategoryButton("Ana Yemekler", masa, menu, "Ana Yemek"));
         leftMenu.add(createCategoryButton("İçecekler", masa, menu, "İçecek"));
         leftMenu.add(createCategoryButton("Tatlılar", masa, menu, "Tatlı"));
 
         // Sağ Panel (Görseller)
-        panelGorsel = new JPanel(new GridLayout(0, 3, 10, 10));
+        panelGorsel = new JPanel(new GridLayout(0, 3, 20, 20)); // 3 sütunlu düzen, boşluklar eklenmiş
         panelGorsel.setBackground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(panelGorsel);
@@ -34,7 +33,7 @@ public class SiparisVerGUI {
         // Başlangıçta tüm yemekleri yükle
         loadCategoryProducts("Ana Yemek", masa, menu);
 
-        // Alt Menü (Geri Dön Butonu)
+        // Alt Menü (Hesapla Butonu)
         JPanel bottomPanel = new JPanel();
         JButton btnBack = new JButton("Hesapla");
         btnBack.addActionListener(e -> new MasaYonetimGUI(frame, masa, null, menu));
@@ -50,14 +49,15 @@ public class SiparisVerGUI {
         frame.revalidate();
         frame.repaint();
     }
+
     private JButton createCategoryButton(String text, Masa masa, Menu menu, String kategori) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setMaximumSize(new Dimension(150, 50));
-        button.setBackground(new Color(102, 102, 102));
+        button.setMaximumSize(new Dimension(200, 50));
+        button.setBackground(Color.DARK_GRAY);
         button.setForeground(Color.WHITE);
+        button.setBorderPainted(false);
         button.setFocusPainted(false);
-
         button.addActionListener(e -> loadCategoryProducts(kategori, masa, menu));
         return button;
     }
@@ -65,23 +65,44 @@ public class SiparisVerGUI {
     private void loadCategoryProducts(String kategori, Masa masa, Menu menu) {
         panelGorsel.removeAll();
 
-        Map<String, Double> urunler = menu.getKategori(kategori);
+        Map<String, Menu.Urun> urunler = menu.getKategori(kategori);
 
-        for (Map.Entry<String, Double> entry : urunler.entrySet()) {
+        for (Map.Entry<String, Menu.Urun> entry : urunler.entrySet()) {
             String urun = entry.getKey();
-            double fiyat = entry.getValue();
+            Menu.Urun urunObj = entry.getValue();
+
+            // Görsel yükleme
+            ImageIcon urunGorsel;
+            try {
+                String imagePath = "/images/" + urun.replaceAll(" ", "_").toLowerCase() + ".jpg";
+                System.out.println("Yüklenen görsel: " + imagePath); // Debug için
+                urunGorsel = new ImageIcon(getClass().getResource(imagePath));
+                if (urunGorsel.getIconWidth() <= 0) {
+                    throw new Exception("Görsel yüklenemedi");
+                }
+                Image scaledImage = urunGorsel.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+                urunGorsel = new ImageIcon(scaledImage);
+            } catch (Exception e) {
+                System.err.println("Hata: " + e.getMessage());
+                urunGorsel = new ImageIcon(getClass().getResource("/images/default.jpg"));
+            }
 
             JPanel productPanel = new JPanel(new BorderLayout());
             productPanel.setBackground(new Color(255, 102, 102));
 
-            JLabel productLabel = new JLabel(urun + " - " + fiyat + " TL", SwingConstants.CENTER);
+            JLabel productImageLabel = new JLabel(urunGorsel, SwingConstants.CENTER);
+            JLabel productLabel = new JLabel(
+                "<html><center>" + urun + "<br>" + urunObj.getFiyat() + " TL</center></html>",
+                SwingConstants.CENTER
+            );
             productLabel.setForeground(Color.WHITE);
 
             JButton siparisButton = new JButton("Ekle");
-            siparisButton.addActionListener(e -> addSiparis(masa, kategori, urun, fiyat));
+            siparisButton.addActionListener(e -> addSiparis(masa, kategori, urun, urunObj.getFiyat()));
 
-            productPanel.add(productLabel, BorderLayout.CENTER);
-            productPanel.add(siparisButton, BorderLayout.SOUTH);
+            productPanel.add(productImageLabel, BorderLayout.NORTH); // Görsel üstte
+            productPanel.add(productLabel, BorderLayout.CENTER);     // Ürün bilgisi ortada
+            productPanel.add(siparisButton, BorderLayout.SOUTH);     // Buton altta
 
             panelGorsel.add(productPanel);
         }
@@ -90,13 +111,12 @@ public class SiparisVerGUI {
         panelGorsel.repaint();
     }
 
-    // Sipariş Ekle
     private void addSiparis(Masa masa, String kategori, String urun, double fiyat) {
         masa.getSiparisler().add(new Siparis(kategori, urun, fiyat));
         JOptionPane.showMessageDialog(frame, urun + " sipariş edildi. Fiyat: " + fiyat + " TL");
     }
-    public Component getPanel() {
- return frame.getContentPane();
 
+    public Component getPanel() {
+        return frame.getContentPane();
     }
 }
