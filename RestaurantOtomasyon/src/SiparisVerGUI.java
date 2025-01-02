@@ -5,9 +5,11 @@ import java.util.Map;
 public class SiparisVerGUI {
     private JFrame frame;
     private JPanel panelGorsel;
+    private RestoranYonetimi restoran;
 
-    public SiparisVerGUI(JFrame frame, Masa masa, Menu menu) {
+    public SiparisVerGUI(JFrame frame, Masa masa, Menu menu, RestoranYonetimi restoran) {
         this.frame = frame;
+        this.restoran = restoran;
 
         // Ana Panel
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -100,7 +102,7 @@ public class SiparisVerGUI {
             JButton siparisButton = new JButton("Ekle");
             siparisButton.addActionListener(e -> {
                 addSiparis(masa, kategori, urun, urunObj.getFiyat());
-                new MasaYonetimGUI(frame, masa, null, menu);
+                new MasaYonetimGUI(frame, masa, restoran, menu);
             });
 
             productPanel.add(productImageLabel, BorderLayout.NORTH); // Görsel üstte

@@ -7,18 +7,17 @@ public class MasaYonetimGUI {
     public MasaYonetimGUI(JFrame frame, Masa masa, RestoranYonetimi restoran, Menu menu) {
         // Ana Panel
         mainPanel = new JPanel(new BorderLayout());
-
         // Sol Menü Paneli
-        SolMenuPaneliGUI solMenuPanel = new SolMenuPaneliGUI(frame);
-
+        SolMenuPaneliGUI solMenuPanel = new SolMenuPaneliGUI(frame, restoran, menu);
 
         // Orta Panel (Sipariş Durumu)
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(new SiparisDurumuGUI(frame, masa).getPanel(), BorderLayout.CENTER);
 
+
         // Sağ Panel (Sipariş Ver)
         JPanel rightMenu = new JPanel(new GridLayout(0, 1, 10, 10));
-        rightMenu.add(new SiparisVerGUI(frame, masa, menu).getPanel());
+        rightMenu.add(new SiparisVerGUI(frame, masa, menu, restoran).getPanel());
 
         // Alt Panel (Hesap ve İşlemler)
         JPanel bottomPanel = new JPanel(new GridLayout(1, 3));

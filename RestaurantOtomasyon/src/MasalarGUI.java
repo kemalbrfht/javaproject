@@ -51,12 +51,10 @@ public class MasalarGUI {
     private void handleMasaClick(Masa masa, int index) {
         if (!masa.isDolu()) {
             // Boş masaya tıklanırsa
-            int confirm = JOptionPane.showConfirmDialog(frame, "Bu masayı açmak istiyor musunuz?", "Masa Aç", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
                 masa.masaAc();
                 updateMasaButton(masaButtons[index], masa);
                 JOptionPane.showMessageDialog(frame, "Masa " + masa.getMasaNo() + " açıldı.");
-            }
+                handleMasaClick(masa, index);
         } else {
             // Dolu masaya tıklanırsa yönetim ekranını aç
             new MasaYonetimGUI(frame, masa, restoran, menu);

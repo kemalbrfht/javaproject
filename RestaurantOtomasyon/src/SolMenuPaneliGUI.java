@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SolMenuPaneliGUI extends JPanel {
-    public SolMenuPaneliGUI(JFrame frame) {
+    public SolMenuPaneliGUI(JFrame frame, RestoranYonetimi restoran, Menu menu) {
         // Ana panel düzeni ve özellikleri
         setLayout(new BorderLayout());
         setBackground(new Color(51, 51, 51));
@@ -13,7 +13,7 @@ public class SolMenuPaneliGUI extends JPanel {
         menuPanel.setBackground(new Color(51, 51, 51));
 
         // Menü Butonlarını Ekle
-        menuPanel.add(createMenuButton("Masa Değiştir", "src/icons/change.png", e -> JOptionPane.showMessageDialog(frame, "Masa Değiştir Tıklandı")));
+        menuPanel.add(createMenuButton("Masa Değiştir", "src/icons/change.png", e -> new MasalarGUI(frame, restoran, menu)));
         //menuPanel.add(createMenuButton("Adisyon Ekle", "src/icons/add.png", e -> JOptionPane.showMessageDialog(frame, "Adisyon Ekle Tıklandı")));
         menuPanel.add(createMenuButton("Adisyon Notu", "src/icons/notifications.png", e -> JOptionPane.showMessageDialog(frame, "Adisyon Notu Tıklandı")));
         //menuPanel.add(createMenuButton("Müşteri Seç", "src/icons/price-tag.png", e -> JOptionPane.showMessageDialog(frame, "Müşteri Seç Tıklandı")));
