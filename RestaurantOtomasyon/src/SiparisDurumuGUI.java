@@ -14,6 +14,7 @@ public class SiparisDurumuGUI {
         // Üst Panel (Masa Adı ve Yemek Ara)
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
+        
 
         // Masa Adı
         JLabel masaAdiLabel = new JLabel("Masa: " + masa.getMasaNo());
