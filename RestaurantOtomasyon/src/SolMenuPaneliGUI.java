@@ -14,11 +14,11 @@ public class SolMenuPaneliGUI extends JPanel {
 
         // Menü Butonlarını Ekle
         menuPanel.add(createMenuButton("Masa Değiştir", "src/icons/change.png", e -> JOptionPane.showMessageDialog(frame, "Masa Değiştir Tıklandı")));
-        menuPanel.add(createMenuButton("Adisyon Ekle", "src/icons/add.png", e -> JOptionPane.showMessageDialog(frame, "Adisyon Ekle Tıklandı")));
+        //menuPanel.add(createMenuButton("Adisyon Ekle", "src/icons/add.png", e -> JOptionPane.showMessageDialog(frame, "Adisyon Ekle Tıklandı")));
         menuPanel.add(createMenuButton("Adisyon Notu", "src/icons/notifications.png", e -> JOptionPane.showMessageDialog(frame, "Adisyon Notu Tıklandı")));
-        menuPanel.add(createMenuButton("Müşteri Seç", "src/icons/price-tag.png", e -> JOptionPane.showMessageDialog(frame, "Müşteri Seç Tıklandı")));
-        menuPanel.add(createMenuButton("Adisyon Ayır", "src/icons/strategy.png", e -> JOptionPane.showMessageDialog(frame, "Adisyon Ayır Tıklandı")));
-        menuPanel.add(createMenuButton("Ödeme Tipi", "src/icons/printer.png", e -> JOptionPane.showMessageDialog(frame, "Ödeme Tipi Tıklandı")));
+        //menuPanel.add(createMenuButton("Müşteri Seç", "src/icons/price-tag.png", e -> JOptionPane.showMessageDialog(frame, "Müşteri Seç Tıklandı")));
+        //menuPanel.add(createMenuButton("Adisyon Ayır", "src/icons/strategy.png", e -> JOptionPane.showMessageDialog(frame, "Adisyon Ayır Tıklandı")));
+        menuPanel.add(createMenuButton("Mutfak", "src/icons/printer.png", e -> JOptionPane.showMessageDialog(frame, "Ödeme Tipi Tıklandı")));
 
         // Alt Panel (Bağımsız Butonlar)
         JPanel bottomPanel = new JPanel();
@@ -26,15 +26,7 @@ public class SolMenuPaneliGUI extends JPanel {
         bottomPanel.setBackground(new Color(51, 51, 51));
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // Üstten boşluk
 
-        JButton btnHesapYaz = new JButton("Hesap Yaz");
-        btnHesapYaz.setMaximumSize(new Dimension(200, 300));
-        btnHesapYaz.setPreferredSize(new Dimension(200,50));
-        btnHesapYaz.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnHesapYaz.setBackground(new Color(153, 0, 0));
-        btnHesapYaz.setForeground(Color.WHITE);
-        btnHesapYaz.setFocusPainted(false);
-        btnHesapYaz.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Hesap Yaz Tıklandı"));
-
+       
         JButton btnOdeme = new JButton("Ödeme");
         btnOdeme.setPreferredSize(new Dimension(200,50));
 
@@ -46,7 +38,7 @@ public class SolMenuPaneliGUI extends JPanel {
         btnOdeme.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Ödeme Tıklandı"));
 
         bottomPanel.add(Box.createVerticalGlue()); // Butonları alta itmek için
-        bottomPanel.add(btnHesapYaz);
+        //bottomPanel.add(btnHesapYaz);
         bottomPanel.add(btnOdeme);
 
         // Ana Panel'e Alt ve Üst Panelleri Ekle

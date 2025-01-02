@@ -20,21 +20,8 @@ public class RestoranOtomasyonuGUI {
     }
 
     public void initMainMenu() {
-        JPanel mainMenu = new JPanel(new GridLayout(3, 1, 10, 10));
-        
-        JButton btnMasalar = new JButton("Masaları Listele");
-       // JButton btnMenu = new JButton("Menüyü Görüntüle");
-        //JButton btnCikis = new JButton("Çıkış");
-
-        btnMasalar.addActionListener(e -> new MasalarGUI(frame, restoran, menu));
-        //btnMenu.addActionListener(e -> new MenuGUI(frame, menu));
-        //btnCikis.addActionListener(e -> System.exit(0));
-
-        mainMenu.add(btnMasalar);
-        //mainMenu.add(btnMenu);
-        //mainMenu.add(btnCikis);
-
-        frame.setContentPane(mainMenu);
+        MasalarGUI masalarGUI = new MasalarGUI(frame, restoran, menu);
+        frame.setContentPane((Container) masalarGUI.getPanel());
         frame.revalidate();
     }
 }

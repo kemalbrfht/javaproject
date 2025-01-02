@@ -23,7 +23,6 @@ public class MasaYonetimGUI {
         // Alt Panel (Hesap ve İşlemler)
         JPanel bottomPanel = new JPanel(new GridLayout(1, 3));
         JLabel totalLabel = new JLabel("Toplam: " + masa.hesaplaHesap() + " TL", SwingConstants.RIGHT);
-        JButton btnPrint = new JButton("Yazdır");
         JButton btnPay = new JButton("Ödeme Yap");
 
         btnPay.addActionListener(e -> {
@@ -38,7 +37,6 @@ public class MasaYonetimGUI {
         });
      
         bottomPanel.add(totalLabel);
-        bottomPanel.add(btnPrint);
         bottomPanel.add(btnPay);
 
         // Panelleri Ana Panele Ekleyin
