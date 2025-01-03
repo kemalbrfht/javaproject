@@ -1,8 +1,6 @@
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class MasalarGUI {
     private JFrame frame;
@@ -21,7 +19,7 @@ public class MasalarGUI {
         masaButtons = new JButton[restoran.getMasalar().size()];
 
         for (int i = 0; i < restoran.getMasalar().size(); i++) {
-            Masa masa = restoran.getMasalar().get(i);
+            Masa masa = (Masa) restoran.getMasalar().get(i);
             JButton btnMasa = new JButton();
             masaButtons[i] = btnMasa;
             updateMasaButton(btnMasa, masa); // Masanın ilk durumuna göre güncelle

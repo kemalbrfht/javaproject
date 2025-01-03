@@ -1,6 +1,6 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
+import javax.swing.*;
 
 public class SiparisVerGUI {
     private JFrame frame;
@@ -98,7 +98,10 @@ public class SiparisVerGUI {
             productLabel.setForeground(Color.WHITE);
 
             JButton siparisButton = new JButton("Ekle");
-            siparisButton.addActionListener(e -> addSiparis(masa, kategori, urun, urunObj.getFiyat()));
+            siparisButton.addActionListener(e -> {
+                addSiparis(masa, kategori, urun, urunObj.getFiyat());
+                new MasaYonetimGUI(frame, masa, null, menu);
+            });
 
             productPanel.add(productImageLabel, BorderLayout.NORTH); // Görsel üstte
             productPanel.add(productLabel, BorderLayout.CENTER);     // Ürün bilgisi ortada
@@ -113,7 +116,6 @@ public class SiparisVerGUI {
 
     private void addSiparis(Masa masa, String kategori, String urun, double fiyat) {
         masa.getSiparisler().add(new Siparis(kategori, urun, fiyat));
-        JOptionPane.showMessageDialog(frame, urun + " sipariş edildi. Fiyat: " + fiyat + " TL");
     }
 
     public Component getPanel() {
