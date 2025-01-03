@@ -32,6 +32,7 @@ public class MasaYonetimGUI {
                 JOptionPane.showMessageDialog(frame, "Ödeme alındı. Masa " + masa.getMasaNo() + " boşaltıldı.");
                 masa.masaKapat();
                 new MasalarGUI(frame, restoran, menu); // Masalar ekranına geri dön
+                
             }
         });
      

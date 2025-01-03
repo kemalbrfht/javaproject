@@ -18,12 +18,15 @@ public class SiparisVerGUI {
         JPanel leftMenu = new JPanel();
         leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
         leftMenu.setPreferredSize(new Dimension(200, frame.getHeight()));
-        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
-
+        leftMenu.add(Box.createVerticalStrut(50)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Ana Yemekler", masa, menu, "Ana Yemek"));
+        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Makarna", masa, menu, "Makarna"));
+        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("İçecekler", masa, menu, "İçecek"));
+        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Tatlılar", masa, menu, "Tatlı"));
+        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Corbalar", masa, menu, "corbalar"));
 
 

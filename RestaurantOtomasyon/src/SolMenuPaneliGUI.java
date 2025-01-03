@@ -89,6 +89,7 @@ public class SolMenuPaneliGUI extends JPanel {
 
         if (confirm == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(frame, "Ödeme başarılı! Masa kapatılıyor.");
+            restoran.ciroyaEkle(masa.hesaplaHesap());
             masa.masaKapat();
             new MasalarGUI(frame, restoran, menu); // Ana ekrana dön
         } else {

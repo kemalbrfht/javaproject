@@ -30,6 +30,9 @@ public class MasalarGUI {
             btnMasa.addActionListener(e -> handleMasaClick(masa, finalI));
             panelMasalar.add(btnMasa);
         }
+        JLabel lblCiro = new JLabel("Ciro: " + restoran.getCiro() + " TL");
+        lblCiro.setHorizontalAlignment(SwingConstants.CENTER);
+        panelMasalar.add(lblCiro);
 
         JButton btnBack = new JButton("Ana Menüye Dön");
         btnBack.addActionListener(e -> new RestoranOtomasyonuGUI().initMainMenu());

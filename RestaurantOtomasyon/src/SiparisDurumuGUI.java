@@ -33,30 +33,6 @@ public class SiparisDurumuGUI {
         // Durum Paneli
         JPanel panelDurum = new JPanel(new BorderLayout());
 
-        // Alt Panel (Geri Dön Butonu)
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-        JLabel totalLabel = new JLabel("Toplam: " + masa.hesaplaHesap() + " TL");
-        totalLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        JButton btnPay = new JButton("Ödeme Yap");
-
-        btnPay.addActionListener(e -> {
-            double toplamHesap = masa.hesaplaHesap();
-            int confirm = JOptionPane.showConfirmDialog(frame, "Toplam hesap: " + toplamHesap + " TL\nHesap ödensin mi?", "Ödeme Yap", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(frame, "Ödeme alındı. Masa " + masa.getMasaNo() + " boşaltıldı.");
-                masa.masaKapat();
-                new MasalarGUI(frame, restoranYonetimi, menu); // Masalar ekranına geri dön
-            }
-        });
-
-        bottomPanel.add(totalLabel);
-        bottomPanel.add(btnPay);
-
-        panelDurum.add(bottomPanel, BorderLayout.SOUTH);
-        mainPanel.add(panelDurum, BorderLayout.CENTER);
        
     
 
@@ -86,7 +62,7 @@ public class SiparisDurumuGUI {
     private void updateSiparisList(Masa masa) {
         listModel.clear(); // Listeyi sıfırla
         for (Siparis siparis : masa.getSiparisler()) {
-            listModel.addElement(siparis.getKategori() + ": " + siparis.getUrun() + " (" + siparis.getFiyat() + " TL)");
+            listModel.addElement(String.format("%-20s %10s %10.2f TL", siparis.getKategori() + ": " + siparis.getUrun(), "", siparis.getFiyat()));
         }
     }
 
