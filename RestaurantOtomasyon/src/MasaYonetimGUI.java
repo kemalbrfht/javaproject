@@ -8,12 +8,11 @@ public class MasaYonetimGUI {
         // Ana Panel
         mainPanel = new JPanel(new BorderLayout());
         // Sol Menü Paneli
-        SolMenuPaneliGUI solMenuPanel = new SolMenuPaneliGUI(frame, restoran, menu,masa);
+        SolMenuPaneliGUI solMenuPanel = new SolMenuPaneliGUI(frame, restoran, menu, masa);
 
         // Orta Panel (Sipariş Durumu)
         JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(new SiparisDurumuGUI(frame,restoran,menu, masa).getPanel(), BorderLayout.CENTER);
-
+        centerPanel.add(new SiparisDurumuGUI(frame, restoran, menu, masa).getPanel(), BorderLayout.CENTER);
 
         // Sağ Panel (Sipariş Ver)
         JPanel rightMenu = new JPanel(new GridLayout(0, 1, 10, 10));
@@ -32,12 +31,20 @@ public class MasaYonetimGUI {
                 JOptionPane.showMessageDialog(frame, "Ödeme alındı. Masa " + masa.getMasaNo() + " boşaltıldı.");
                 masa.masaKapat();
                 new MasalarGUI(frame, restoran, menu); // Masalar ekranına geri dön
-                
             }
         });
-     
-        //bottomPanel.add(totalLabel);
-        //bottomPanel.add(btnPay);
+
+        // Adisyon Notunu Mutfak'a Gönder
+        JButton btnSendToMutfak = new JButton("Mutfak'a Gönder");
+        btnSendToMutfak.addActionListener(e -> {
+            restoran.getMutfak().adisyonNotuEkle(masa); // Adisyon notunu mutfağa gönder
+            JOptionPane.showMessageDialog(frame, "Adisyon notu mutfağa gönderildi: \n" + masa.getAdisyonNotu());
+        });
+
+        // Bottom panel'e ekleme
+        bottomPanel.add(totalLabel);
+        bottomPanel.add(btnPay);
+        bottomPanel.add(btnSendToMutfak); // Yeni buton burada ekleniyor
 
         // Panelleri Ana Panele Ekleyin
         mainPanel.add(solMenuPanel, BorderLayout.WEST);
@@ -48,13 +55,9 @@ public class MasaYonetimGUI {
         // Frame Ayarları
         frame.setContentPane(mainPanel);
         frame.revalidate();
-      
     }
-       public JPanel getPanel() {
 
+    public JPanel getPanel() {
         return mainPanel;
-
     }
-
-    
 }

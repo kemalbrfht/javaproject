@@ -5,6 +5,7 @@ import java.util.List;
 public class RestoranYonetimi {
     private List<Masa> masalar;
     private double ciro;
+    private Mutfak mutfak;
 
     public RestoranYonetimi() {
         masalar = new ArrayList<>();
@@ -21,9 +22,13 @@ public class RestoranYonetimi {
     public double getCiro(){
         return ciro;
     }
+    
 
     // Masaların listesini döndürür
     public List<Masa> getMasalar() {
         return masalar;
+    }
+    public Mutfak getMutfak(){
+        return mutfak;
     }
 }

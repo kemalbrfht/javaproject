@@ -7,6 +7,8 @@ public class MutfakGUI extends JPanel {
     private JScrollPane scrollPane;
     private String[] columnNames = {"Yemek Adı", "Hazırlanma Süresi", "Hazırlandı"};
     private Object[][] data;
+    private JTextArea adisyonNotuArea;
+
 
     public MutfakGUI(JFrame frame, RestoranYonetimi restoran, Menu menu, Masa masa) {
         // Mutfakta bulunan yemeklerin listesini al
@@ -34,6 +36,13 @@ public class MutfakGUI extends JPanel {
 
         // Buton tıklama olayını ayarla
         btnShowMutfakInfo.addActionListener(e -> showMutfakInfo(yemekler));
+        adisyonNotuArea = new JTextArea();
+        adisyonNotuArea.setEditable(false);
+        adisyonNotuArea.setText("Adisyon Notu:\n" + masa.getAdisyonNotu());
+        JScrollPane adisyonScrollPane = new JScrollPane(adisyonNotuArea);
+
+        // Panel düzenine ekleme
+        add(adisyonScrollPane, BorderLayout.NORTH);
     }
 
     public void showMutfakInfo(List<Siparis> yemekler) {
