@@ -6,11 +6,30 @@ public class Masa {
     private int masaNo;
     private boolean dolu;
     private List<Siparis> siparisler;
+    private Mutfak mutfak;
+    private String adisyonNotu;
+
+    public String getAdisyonNotu() {
+        return adisyonNotu;
+    }
+
+    public void setAdisyonNotu(String adisyonNotu) {
+        this.adisyonNotu = adisyonNotu;
+    }
+
+    public Mutfak getMutfak() {
+        return mutfak;
+    }
+
+    public void setMutfak(Mutfak mutfak) {
+        this.mutfak = mutfak;
+    }
 
     public Masa(int masaNo) {
         this.masaNo = masaNo;
         this.dolu = false;
         this.siparisler = new ArrayList<>();
+        this.adisyonNotu="";
     }
 
     public int getMasaNo() {

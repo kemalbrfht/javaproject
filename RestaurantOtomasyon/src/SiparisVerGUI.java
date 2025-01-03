@@ -21,8 +21,11 @@ public class SiparisVerGUI {
         leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
 
         leftMenu.add(createCategoryButton("Ana Yemekler", masa, menu, "Ana Yemek"));
+        leftMenu.add(createCategoryButton("Makarna", masa, menu, "Makarna"));
         leftMenu.add(createCategoryButton("İçecekler", masa, menu, "İçecek"));
         leftMenu.add(createCategoryButton("Tatlılar", masa, menu, "Tatlı"));
+        leftMenu.add(createCategoryButton("Corbalar", masa, menu, "corbalar"));
+
 
         // Sağ Panel (Görseller)
         panelGorsel = new JPanel(new GridLayout(0, 3, 20, 20)); // 3 sütunlu düzen, boşluklar eklenmiş
@@ -35,16 +38,10 @@ public class SiparisVerGUI {
         // Başlangıçta tüm yemekleri yükle
         loadCategoryProducts("Ana Yemek", masa, menu);
 
-        // Alt Menü (Hesapla Butonu)
-        JPanel bottomPanel = new JPanel();
-        JButton btnBack = new JButton("Hesapla");
-        btnBack.addActionListener(e -> new MasaYonetimGUI(frame, masa, null, menu));
-        bottomPanel.add(btnBack);
-
+        
         // Ana Paneli Düzenleme
         mainPanel.add(leftMenu, BorderLayout.WEST);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         // Frame Ayarları
         frame.setContentPane(mainPanel);
@@ -101,7 +98,7 @@ public class SiparisVerGUI {
 
             JButton siparisButton = new JButton("Ekle");
             siparisButton.addActionListener(e -> {
-                addSiparis(masa, kategori, urun, urunObj.getFiyat());
+                addSiparis(masa, kategori, urun,urunObj.getFiyat(),urunObj.getYemkesuresi());
                 new MasaYonetimGUI(frame, masa, restoran, menu);
             });
 
@@ -116,8 +113,8 @@ public class SiparisVerGUI {
         panelGorsel.repaint();
     }
 
-    private void addSiparis(Masa masa, String kategori, String urun, double fiyat) {
-        masa.getSiparisler().add(new Siparis(kategori, urun, fiyat));
+    private void addSiparis(Masa masa, String kategori, String urun, double fiyat,int hazırlanmasuresi) {
+        masa.getSiparisler().add(new Siparis(kategori, urun, fiyat,hazırlanmasuresi));
     }
 
     public Component getPanel() {

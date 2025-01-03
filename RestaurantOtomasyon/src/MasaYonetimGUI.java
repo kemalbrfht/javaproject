@@ -8,11 +8,11 @@ public class MasaYonetimGUI {
         // Ana Panel
         mainPanel = new JPanel(new BorderLayout());
         // Sol Menü Paneli
-        SolMenuPaneliGUI solMenuPanel = new SolMenuPaneliGUI(frame, restoran, menu);
+        SolMenuPaneliGUI solMenuPanel = new SolMenuPaneliGUI(frame, restoran, menu,masa);
 
         // Orta Panel (Sipariş Durumu)
         JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(new SiparisDurumuGUI(frame, masa).getPanel(), BorderLayout.CENTER);
+        centerPanel.add(new SiparisDurumuGUI(frame,restoran,menu, masa).getPanel(), BorderLayout.CENTER);
 
 
         // Sağ Panel (Sipariş Ver)
@@ -35,8 +35,8 @@ public class MasaYonetimGUI {
             }
         });
      
-        bottomPanel.add(totalLabel);
-        bottomPanel.add(btnPay);
+        //bottomPanel.add(totalLabel);
+        //bottomPanel.add(btnPay);
 
         // Panelleri Ana Panele Ekleyin
         mainPanel.add(solMenuPanel, BorderLayout.WEST);
