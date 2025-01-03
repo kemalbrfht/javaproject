@@ -34,10 +34,6 @@ public class MasalarGUI {
         lblCiro.setHorizontalAlignment(SwingConstants.CENTER);
         panelMasalar.add(lblCiro);
 
-        JButton btnBack = new JButton("Ana Menüye Dön");
-        btnBack.addActionListener(e -> new RestoranOtomasyonuGUI().initMainMenu());
-        panelMasalar.add(btnBack);
-
         frame.setContentPane(panelMasalar);
         frame.revalidate();
     }

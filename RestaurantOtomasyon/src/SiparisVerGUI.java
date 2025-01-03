@@ -6,6 +6,7 @@ public class SiparisVerGUI {
     private JFrame frame;
     private JPanel panelGorsel;
     private RestoranYonetimi restoran;
+    private Mutfak mutfak = new Mutfak();
 
     public SiparisVerGUI(JFrame frame, Masa masa, Menu menu, RestoranYonetimi restoran) {
         this.frame = frame;
@@ -29,7 +30,6 @@ public class SiparisVerGUI {
         leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Corbalar", masa, menu, "corbalar"));
 
-
         // Sağ Panel (Görseller)
         panelGorsel = new JPanel(new GridLayout(0, 3, 20, 20)); // 3 sütunlu düzen, boşluklar eklenmiş
         panelGorsel.setBackground(Color.WHITE);
@@ -41,7 +41,6 @@ public class SiparisVerGUI {
         // Başlangıçta tüm yemekleri yükle
         loadCategoryProducts("Ana Yemek", masa, menu);
 
-        
         // Ana Paneli Düzenleme
         mainPanel.add(leftMenu, BorderLayout.WEST);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
@@ -77,7 +76,6 @@ public class SiparisVerGUI {
             ImageIcon urunGorsel;
             try {
                 String imagePath = "/images/" + urun.replaceAll(" ", "_").toLowerCase() + ".jpg";
-                System.out.println("Yüklenen görsel: " + imagePath); // Debug için
                 urunGorsel = new ImageIcon(getClass().getResource(imagePath));
                 if (urunGorsel.getIconWidth() <= 0) {
                     throw new Exception("Görsel yüklenemedi");
@@ -94,20 +92,21 @@ public class SiparisVerGUI {
 
             JLabel productImageLabel = new JLabel(urunGorsel, SwingConstants.CENTER);
             JLabel productLabel = new JLabel(
-                "<html><center>" + urun + "<br>" + urunObj.getFiyat() + " TL</center></html>",
-                SwingConstants.CENTER
-            );
+                    "<html><center>" + urun + "<br>" + urunObj.getFiyat() + " TL</center></html>",
+                    SwingConstants.CENTER);
             productLabel.setForeground(Color.WHITE);
 
             JButton siparisButton = new JButton("Ekle");
             siparisButton.addActionListener(e -> {
-                addSiparis(masa, kategori, urun,urunObj.getFiyat(),urunObj.getYemkesuresi());
+                addSiparis(masa, kategori, urun, urunObj.getFiyat(), urunObj.getYemkesuresi());
+                mutfak.yemekEkle(masa.getSiparisler());
+                mutfak.yemekHazirla();
                 new MasaYonetimGUI(frame, masa, restoran, menu);
             });
 
             productPanel.add(productImageLabel, BorderLayout.NORTH); // Görsel üstte
-            productPanel.add(productLabel, BorderLayout.CENTER);     // Ürün bilgisi ortada
-            productPanel.add(siparisButton, BorderLayout.SOUTH);     // Buton altta
+            productPanel.add(productLabel, BorderLayout.CENTER); // Ürün bilgisi ortada
+            productPanel.add(siparisButton, BorderLayout.SOUTH); // Buton altta
 
             panelGorsel.add(productPanel);
         }
@@ -116,8 +115,8 @@ public class SiparisVerGUI {
         panelGorsel.repaint();
     }
 
-    private void addSiparis(Masa masa, String kategori, String urun, double fiyat,int hazırlanmasuresi) {
-        masa.getSiparisler().add(new Siparis(kategori, urun, fiyat,hazırlanmasuresi));
+    private void addSiparis(Masa masa, String kategori, String urun, double fiyat, int hazırlanmasuresi) {
+        masa.getSiparisler().add(new Siparis(kategori, urun, fiyat, hazırlanmasuresi));
     }
 
     public Component getPanel() {

@@ -1,11 +1,10 @@
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Masa {
     private int masaNo;
     private boolean dolu;
-    private List<Siparis> siparisler;
+    private ArrayList<Siparis> siparisler;
     private Mutfak mutfak;
     private String adisyonNotu;
 
@@ -44,7 +43,7 @@ public class Masa {
         this.dolu = dolu;
     }
 
-    public List<Siparis> getSiparisler() {
+    public ArrayList<Siparis> getSiparisler() {
         return siparisler;
     }
 

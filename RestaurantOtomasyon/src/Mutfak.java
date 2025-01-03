@@ -20,8 +20,8 @@ public class Mutfak {
 
 
     // Yemek ekleme metodu
-    public void yemekEkle(Siparis siparis) {
-        yemekler.add(siparis);
+    public void yemekEkle(ArrayList<Siparis> yemekler) {
+        this.yemekler.addAll(yemekler);
     }
 
     // Masanın adisyon notunu ekle
@@ -37,14 +37,24 @@ public class Mutfak {
     // Yemeklerin hazırlanmasını simüle et
     public void yemekHazirla() {
         for (Siparis siparis : yemekler) {
-            // Her yemek için hazırlanma süresi kadar zamanlayıcı başlatıyoruz
-            timer.schedule(new TimerTask() {
+            int hazırlanmaSüresi = siparis.getHazırlanmasüresi();  // Süre saniye cinsinden
+            TimerTask timerTask = new TimerTask() {
+                private int kalanSüre = hazırlanmaSüresi;
+    
                 @Override
                 public void run() {
-                    
-                    System.out.println(siparis.getUrun() + " hazırlandı!");
+                    if (kalanSüre > 0) {
+                        kalanSüre -= 1;  // Her saniye kalan süreyi azalt
+                        siparis.setKalanHazırlanmaSüresi(kalanSüre);  // Kalan süreyi saniye cinsinden ayarla
+                    } else {
+                        System.out.println(siparis.getUrun() + " hazırlandı!");
+                        siparis.setHazırlandı(true);
+                        this.cancel();  // TimerTask'ı iptal et
+                    }
                 }
-            }, (long) (siparis.getFiyat() * 1000));  // Süre saniye cinsinden
+            };
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(timerTask, 0, 1000);  // Her saniye çalıştır
         }
     }
 
