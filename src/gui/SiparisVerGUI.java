@@ -28,15 +28,10 @@ public class SiparisVerGUI {
         JPanel leftMenu = new JPanel();
         leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
         leftMenu.setPreferredSize(new Dimension(200, frame.getHeight()));
-        leftMenu.add(Box.createVerticalStrut(50)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Ana Yemekler", masa, menu, "Ana Yemek"));
-        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Makarna", masa, menu, "Makarna"));
-        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("İçecekler", masa, menu, "İçecek"));
-        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Tatlılar", masa, menu, "Tatlı"));
-        leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Çorbalar", masa, menu, "Çorbalar"));
 
         // Sağ Panel (Görseller)
@@ -85,11 +80,15 @@ public class SiparisVerGUI {
             ImageIcon urunGorsel;
             try {
                 String imagePath = "/images/" + urun.replaceAll(" ", "_").toLowerCase() + ".jpg";
+                java.net.URL imageUrl = getClass().getResource(imagePath);
+                if (imageUrl == null) {
+                    throw new Exception("Görsel bulunamadı: " + imagePath);
+                }
                 urunGorsel = new ImageIcon(getClass().getResource(imagePath));
                 if (urunGorsel.getIconWidth() <= 0) {
                     throw new Exception("Görsel yüklenemedi");
                 }
-                Image scaledImage = urunGorsel.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+                Image scaledImage = urunGorsel.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
                 urunGorsel = new ImageIcon(scaledImage);
             } catch (Exception e) {
                 System.err.println("Hata: " + e.getMessage());
@@ -97,15 +96,23 @@ public class SiparisVerGUI {
             }
 
             JPanel productPanel = new JPanel(new BorderLayout());
+            productPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+                    addSiparis(masa, kategori, urun, urunObj.getFiyat(), urunObj.getHazırlanmasüresi());
+                    mutfak.yemekEkle(masa.getSiparisler());
+                    mutfak.yemekHazirla();
+                    new MasaYonetimGUI(frame, masa, restoran, menu);
+                }
+            });
             productPanel.setBackground(new Color(255, 102, 102));
 
             JLabel productImageLabel = new JLabel(urunGorsel, SwingConstants.CENTER);
-            JLabel productLabel = new JLabel(
-                    "<html><center>" + urun + "<br>" + urunObj.getFiyat() + " TL</center></html>",
-                    SwingConstants.CENTER);
-            productLabel.setForeground(Color.WHITE);
 
-            JButton siparisButton = new JButton("Ekle");
+            JButton siparisButton = new JButton("<html><center style='padding:10px;'>" + urun + "<br>"
+                    + urunObj.getFiyat() + " TL</center></html>");
+            siparisButton.setBackground(new Color(255, 100, 100));
+            siparisButton.setForeground(Color.WHITE);
             siparisButton.addActionListener(e -> {
                 addSiparis(masa, kategori, urun, urunObj.getFiyat(), urunObj.getHazırlanmasüresi());
                 mutfak.yemekEkle(masa.getSiparisler());
@@ -114,8 +121,7 @@ public class SiparisVerGUI {
             });
 
             productPanel.add(productImageLabel, BorderLayout.NORTH); // Görsel üstte
-            productPanel.add(productLabel, BorderLayout.CENTER); // Ürün bilgisi ortada
-            productPanel.add(siparisButton, BorderLayout.SOUTH); // Buton altta
+            productPanel.add(siparisButton, BorderLayout.CENTER); // Buton altta
 
             panelGorsel.add(productPanel);
         }
