@@ -74,7 +74,7 @@ public class Menu {
         corbalar.put("tarhana corbasi",new Urun(50.0, "/src/images/tarhana_corbasi.jpg",0));
         corbalar.put("tavuk corbasi",new Urun(70.0, "/src/images/tavuk_corbasi.jpg",0));
 
-        urunler.put("corbalar",corbalar);
+        urunler.put("Çorbalar",corbalar);
     }
 
     public Map<String, Urun> getKategori(String kategori) {

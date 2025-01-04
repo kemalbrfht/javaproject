@@ -25,26 +25,10 @@ public class MasaYonetimGUI {
         JPanel rightMenu = new JPanel(new GridLayout(0, 1, 10, 10));
         rightMenu.add(new SiparisVerGUI(frame, masa, menu, restoran).getPanel());
 
-        // Alt Panel (Hesap ve İşlemler)
-        JPanel bottomPanel = new JPanel(new GridLayout(1, 3));
-        JLabel totalLabel = new JLabel("Toplam: " + masa.hesaplaHesap() + " TL", SwingConstants.RIGHT);
-
-        // Adisyon Notunu Mutfak'a Gönder
-        JButton btnSendToMutfak = new JButton("Mutfak'a Gönder");
-        btnSendToMutfak.addActionListener(e -> {
-            restoran.getMutfak().adisyonNotuEkle(masa); // Adisyon notunu mutfağa gönder
-            JOptionPane.showMessageDialog(frame, "Adisyon notu mutfağa gönderildi: \n" + masa.getAdisyonNotu());
-        });
-
-        // Bottom panel'e ekleme
-        bottomPanel.add(totalLabel);
-        bottomPanel.add(btnSendToMutfak); // Yeni buton burada ekleniyor
-
         // Panelleri Ana Panele Ekleyin
         mainPanel.add(solMenuPanel, BorderLayout.WEST);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
         mainPanel.add(rightMenu, BorderLayout.EAST);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         // Frame Ayarları
         frame.setContentPane(mainPanel);
