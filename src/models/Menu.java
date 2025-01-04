@@ -1,4 +1,4 @@
-import java.net.URI;
+package models;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,12 +22,6 @@ public class Menu {
         anaYemekler.put("kusbasili pide", new Urun(70.0, "/srcimages/kusbasili_pide.jpg",9));
         anaYemekler.put("somon baligi", new Urun(70.0, "/srcimages/somon_baligi.jpg",9));
 
-
-
-        
-
-
-        
         urunler.put("Ana Yemek", anaYemekler);
 
         // İçecekler
@@ -40,7 +34,6 @@ public class Menu {
         icecekler.put("filtre kahve", new Urun(50.0, "/src/images/filtre_kahve.jpg",0));
         icecekler.put("latte", new Urun(50.0, "/src/images/latte.jpg",0));
         icecekler.put("salgam", new Urun(50.0, "/src/images/salgam.jpg",0));
-
 
         urunler.put("İçecek", icecekler);
 
@@ -55,7 +48,6 @@ public class Menu {
         tatlilar.put("trilece", new Urun(20.0, "/src/images/trilece.jpg",5));
         tatlilar.put("waffle", new Urun(20.0, "/src/images/waffle.jpg",5));
 
-
         urunler.put("Tatlı", tatlilar);
 
         Map<String,Urun> makarna= new HashMap<>();
@@ -66,8 +58,6 @@ public class Menu {
         
         urunler.put("Makarna",makarna);
 
-
-
         Map<String,Urun> salatalar= new HashMap<>();
         salatalar.put("Kısır",new Urun(10.0, "/src/images/kisir.jpg",0));
         salatalar.put("brokolisalatasi",new Urun(10, "/src/images/brokolisalatasi.jpg", 4));
@@ -75,8 +65,6 @@ public class Menu {
         salatalar.put("Tavuksalata",new Urun(16, "/src/images/tavuksalata.jpg", 30));
         salatalar.put("YildizSehriye",new Urun(18, "/src/images/yildizsehriye.jpg", 30));
 
-
-        
         urunler.put("salatalar",salatalar);
 
         Map<String,Urun> corbalar= new HashMap<>();
@@ -86,11 +74,7 @@ public class Menu {
         corbalar.put("tarhana corbasi",new Urun(50.0, "/src/images/tarhana_corbasi.jpg",0));
         corbalar.put("tavuk corbasi",new Urun(70.0, "/src/images/tavuk_corbasi.jpg",0));
 
-
-
         urunler.put("corbalar",corbalar);
-
-
     }
 
     public Map<String, Urun> getKategori(String kategori) {
@@ -106,26 +90,21 @@ public class Menu {
         }
     }
 
-    public static class Urun {
-        private double fiyat;
+    public static class Urun extends Siparis {
         private String gorselYolu;
-        private int yemeksuresi;
 
-        public Urun(double fiyat, String gorselYolu,int yemeksuresi) {
-            this.fiyat = fiyat;
+        public Urun(double fiyat, String gorselYolu, int yemeksuresi) {
+            super("Kategori", "Urun", fiyat, yemeksuresi);
             this.gorselYolu = gorselYolu;
-            this.yemeksuresi=yemeksuresi;
-        }
-
-        public double getFiyat() {
-            return fiyat;
         }
 
         public String getGorselYolu() {
             return gorselYolu;
         }
-        public int getYemkesuresi(){
-            return yemeksuresi;
+
+        @Override
+        public void hazirla() {
+            
         }
     }
 }

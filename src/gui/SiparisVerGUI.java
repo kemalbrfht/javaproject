@@ -1,4 +1,13 @@
+package gui;
+
 import javax.swing.*;
+import controllers.RestoranYonetimi;
+import controllers.Mutfak;
+import models.Masa;
+import models.Menu;
+import models.YemekSiparisi;
+import models.Siparis;
+
 import java.awt.*;
 import java.util.Map;
 
@@ -28,7 +37,7 @@ public class SiparisVerGUI {
         leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
         leftMenu.add(createCategoryButton("Tatlılar", masa, menu, "Tatlı"));
         leftMenu.add(Box.createVerticalStrut(10)); // Boşluk ekleme
-        leftMenu.add(createCategoryButton("Corbalar", masa, menu, "corbalar"));
+        leftMenu.add(createCategoryButton("Çorbalar", masa, menu, "Çorbalar"));
 
         // Sağ Panel (Görseller)
         panelGorsel = new JPanel(new GridLayout(0, 3, 20, 20)); // 3 sütunlu düzen, boşluklar eklenmiş
@@ -98,7 +107,7 @@ public class SiparisVerGUI {
 
             JButton siparisButton = new JButton("Ekle");
             siparisButton.addActionListener(e -> {
-                addSiparis(masa, kategori, urun, urunObj.getFiyat(), urunObj.getYemkesuresi());
+                addSiparis(masa, kategori, urun, urunObj.getFiyat(), urunObj.getHazırlanmasüresi());
                 mutfak.yemekEkle(masa.getSiparisler());
                 mutfak.yemekHazirla();
                 new MasaYonetimGUI(frame, masa, restoran, menu);
@@ -116,7 +125,8 @@ public class SiparisVerGUI {
     }
 
     private void addSiparis(Masa masa, String kategori, String urun, double fiyat, int hazırlanmasuresi) {
-        masa.getSiparisler().add(new Siparis(kategori, urun, fiyat, hazırlanmasuresi));
+        Siparis siparis = new YemekSiparisi(kategori, urun, fiyat, hazırlanmasuresi);
+        masa.getSiparisler().add(siparis);
     }
 
     public Component getPanel() {

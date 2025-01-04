@@ -1,4 +1,11 @@
+package gui;
 import javax.swing.*;
+
+import controllers.*;
+import models.Masa;
+import models.Menu;
+import models.Siparis;
+
 import java.awt.*;
 
 public class SiparisDurumuGUI {
@@ -29,11 +36,6 @@ public class SiparisDurumuGUI {
                 JOptionPane.showMessageDialog(frame, "Silmek için bir sipariş seçin!");
             }
         });
-        
-        // Durum Paneli
-        JPanel panelDurum = new JPanel(new BorderLayout());
-
-       
     
 
         // Toplam Fiyat Alanı

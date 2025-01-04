@@ -1,8 +1,12 @@
+package gui;
 
 import javax.swing.*;
+
+import controllers.*;
+import models.Masa;
+import models.Menu;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MasalarGUI {
     private JFrame frame;
@@ -40,9 +44,9 @@ public class MasalarGUI {
 
     // Masa butonunu duruma göre günceller
     private void updateMasaButton(JButton button, Masa masa) {
-        button.setText("M " + masa.getMasaNo() + "\n" + (masa.isDolu() ? "Dolu" : "Boş"));
-        button.setBackground(masa.isDolu() ? Color.RED : Color.GREEN);
-        button.setOpaque(true);
+        button.setText("M " + masa.getMasaNo() + "\n" + (masa.isDolu() ? " Dolu" : " Boş"));
+        button.setBackground(masa.isDolu() ? new Color(190, 0, 0) : new Color(0, 190, 0));
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
         button.setForeground(Color.WHITE);
     }
 
@@ -50,10 +54,10 @@ public class MasalarGUI {
     private void handleMasaClick(Masa masa, int index) {
         if (!masa.isDolu()) {
             // Boş masaya tıklanırsa
-                masa.masaAc();
-                updateMasaButton(masaButtons[index], masa);
-                JOptionPane.showMessageDialog(frame, "Masa " + masa.getMasaNo() + " açıldı.");
-                handleMasaClick(masa, index);
+            masa.masaAc();
+            updateMasaButton(masaButtons[index], masa);
+            JOptionPane.showMessageDialog(frame, "Masa " + masa.getMasaNo() + " açıldı.");
+            handleMasaClick(masa, index);
         } else {
             // Dolu masaya tıklanırsa yönetim ekranını aç
             new MasaYonetimGUI(frame, masa, restoran, menu);
@@ -62,6 +66,6 @@ public class MasalarGUI {
 
     public Component getPanel() {
         return frame
-    .getContentPane();
+                .getContentPane();
     }
 }

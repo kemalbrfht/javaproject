@@ -1,6 +1,7 @@
-
+package controllers;
 import java.util.ArrayList;
 import java.util.List;
+import models.*;
 
 public class RestoranYonetimi {
     private List<Masa> masalar;
@@ -30,5 +31,9 @@ public class RestoranYonetimi {
     }
     public Mutfak getMutfak(){
         return mutfak;
+    }
+
+    public void siparisHazirla(Hazirlanabilir siparis) {
+        siparis.hazirla();
     }
 }
