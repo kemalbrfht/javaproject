@@ -1,5 +1,10 @@
+package gui;
 import java.awt.*;
 import javax.swing.*;
+
+// Correct the import statements
+import models.Menu;
+import controllers.RestoranYonetimi;
 
 public class giris extends JFrame {
 

@@ -1,3 +1,4 @@
+package controllers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -5,19 +6,20 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import models.Masa;
+import models.Siparis;
+
 public class Mutfak {
     private List<Siparis> yemekler;
-    private Timer timer;
     private Map<Masa, String> adisyonNotlari; // Masa ve adisyon notunu tutan yapı
 
 
     public Mutfak() {
         yemekler = new ArrayList<>();
-        timer = new Timer();
+        new Timer();
         adisyonNotlari = new HashMap<>();
 
     }
-
 
     // Yemek ekleme metodu
     public void yemekEkle(ArrayList<Siparis> yemekler) {

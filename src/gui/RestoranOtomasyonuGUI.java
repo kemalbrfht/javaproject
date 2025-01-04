@@ -1,5 +1,10 @@
+package gui;
 
 import javax.swing.*;
+
+import controllers.*;
+import models.Menu;
+
 import java.awt.*;
 
 public class RestoranOtomasyonuGUI {

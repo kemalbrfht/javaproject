@@ -1,5 +1,8 @@
+package models;
 
 import java.util.ArrayList;
+
+import controllers.*;
 
 public class Masa {
     private int masaNo;

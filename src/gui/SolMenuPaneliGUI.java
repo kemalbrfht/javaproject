@@ -1,4 +1,10 @@
+package gui;
 import javax.swing.*;
+
+import controllers.*;
+import models.Masa;
+import models.Menu;
+
 import java.awt.*;
 
 public class SolMenuPaneliGUI extends JPanel {

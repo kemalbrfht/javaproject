@@ -1,4 +1,11 @@
+package gui;
+
 import javax.swing.*;
+
+import controllers.*;
+import models.Masa;
+import models.Menu;
+
 import java.awt.*;
 
 public class MasaYonetimGUI {
@@ -21,18 +28,6 @@ public class MasaYonetimGUI {
         // Alt Panel (Hesap ve İşlemler)
         JPanel bottomPanel = new JPanel(new GridLayout(1, 3));
         JLabel totalLabel = new JLabel("Toplam: " + masa.hesaplaHesap() + " TL", SwingConstants.RIGHT);
-        JButton btnPay = new JButton("Ödeme Yap");
-
-        btnPay.addActionListener(e -> {
-            double toplamHesap = masa.hesaplaHesap();
-            int confirm = JOptionPane.showConfirmDialog(frame, "Toplam hesap: " + toplamHesap + " TL\nHesap ödensin mi?", "Ödeme Yap", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(frame, "Ödeme alındı. Masa " + masa.getMasaNo() + " boşaltıldı.");
-                masa.masaKapat();
-                new MasalarGUI(frame, restoran, menu); // Masalar ekranına geri dön
-            }
-        });
 
         // Adisyon Notunu Mutfak'a Gönder
         JButton btnSendToMutfak = new JButton("Mutfak'a Gönder");
@@ -43,7 +38,6 @@ public class MasaYonetimGUI {
 
         // Bottom panel'e ekleme
         bottomPanel.add(totalLabel);
-        bottomPanel.add(btnPay);
         bottomPanel.add(btnSendToMutfak); // Yeni buton burada ekleniyor
 
         // Panelleri Ana Panele Ekleyin
