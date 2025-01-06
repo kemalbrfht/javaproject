@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Timer;
+
 public abstract class Siparis implements Hazirlanabilir {
     private String kategori;
     private String urun;
@@ -7,9 +9,11 @@ public abstract class Siparis implements Hazirlanabilir {
     private int hazırlanmasuresi;
     private boolean hazırlandı;
     private int kalanHazırlanmaSüresi;  // Hazırlık süresi azalan
+    private Timer timer;
 
     public Siparis(String kategori, String urun, double fiyat,int hazırlanmasuresi) {
         this.kategori = kategori;
+        this.timer = timer;
         this.urun = urun;
         this.fiyat = fiyat;
         this.hazırlanmasuresi= hazırlanmasuresi;
@@ -47,6 +51,13 @@ public abstract class Siparis implements Hazirlanabilir {
 
     public void setHazırlandı(boolean hazırlandı) {
         this.hazırlandı = hazırlandı;
+    }
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
     }
 
     @Override

@@ -38,8 +38,8 @@ public class Mutfak {
     // Yemeklerin hazırlanmasını simüle et
     public void yemekHazirla() {
         for (Siparis siparis : yemekler) {
-            // Eğer yemek daha önce hazırlanmışsa tekrar işlem yapma
-            if (siparis.isHazırlandı() || siparis.getKalanHazırlanmaSüresi() <= 0) {
+            // Eğer yemek daha önce hazırlanmışsa veya Timer zaten çalışıyorsa, işlem yapma
+            if (siparis.isHazırlandı() || siparis.getTimer() != null) {
                 continue;
             }
     
@@ -54,15 +54,19 @@ public class Mutfak {
                     } else {
                         System.out.println(siparis.getUrun() + " hazırlandı!");
                         siparis.setHazırlandı(true); // Yemek hazırlandı olarak işaretle
-                        this.cancel(); // TimerTask'ı iptal et
+                        siparis.getTimer().cancel(); // Timer'ı iptal et
+                        siparis.setTimer(null); // Timer referansını sıfırla
                     }
                 }
             };
     
+            // Yeni bir Timer oluştur ve siparişe ata
             Timer timer = new Timer();
+            siparis.setTimer(timer);
             timer.scheduleAtFixedRate(timerTask, 0, 1000); // Her saniyede bir çalıştır
         }
     }
+    
     
     // Yemeklerin listesini döndür
     public List<Siparis> getYemekler() {

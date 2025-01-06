@@ -95,7 +95,6 @@ public class SiparisVerGUI {
             }
 
             JPanel productPanel = new JPanel(new BorderLayout());
-
             productPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
 
