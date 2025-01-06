@@ -1,8 +1,7 @@
 package models;
 
-import java.util.ArrayList;
-
 import controllers.*;
+import java.util.ArrayList;
 
 public class Masa {
     private int masaNo;
@@ -66,10 +65,11 @@ public class Masa {
     }
 
     public double hesaplaHesap() {
-        double toplam = 0;
+        double toplam = 0.0;
         for (Siparis siparis : siparisler) {
-            toplam += siparis.getFiyat();
+            toplam += siparis.getFiyat(); // Her siparişin fiyatını topla
         }
         return toplam;
     }
+    
 }

@@ -1,15 +1,14 @@
 package gui;
 
-import javax.swing.*;
-import controllers.RestoranYonetimi;
 import controllers.Mutfak;
-import models.Masa;
-import models.Menu;
-import models.YemekSiparisi;
-import models.Siparis;
-
+import controllers.RestoranYonetimi;
 import java.awt.*;
 import java.util.Map;
+import javax.swing.*;
+import models.Masa;
+import models.Menu;
+import models.Siparis;
+import models.YemekSiparisi;
 
 public class SiparisVerGUI {
     private JFrame frame;
@@ -96,6 +95,7 @@ public class SiparisVerGUI {
             }
 
             JPanel productPanel = new JPanel(new BorderLayout());
+
             productPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
 

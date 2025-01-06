@@ -1,15 +1,13 @@
 package gui;
 
-import javax.swing.*;
-
 import controllers.*;
+import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.*;
 import models.Masa;
 import models.Menu;
 import models.Siparis;
-
-import java.awt.*;
-import java.util.TimerTask;
-import java.util.Timer;
 
 public class SiparisDurumuGUI {
     private JPanel mainPanel;
@@ -29,18 +27,18 @@ public class SiparisDurumuGUI {
         // "Sil" Butonu
         JButton btnSil = new JButton("Sil");
         btnSil.addActionListener(e -> {
-            int[] selectedIndices = siparisList.getSelectedIndices();
+            int[] selectedIndices = siparisList.getSelectedIndices(); // Seçili indeksleri al
             if (selectedIndices.length > 0) {
                 for (int i = selectedIndices.length - 1; i >= 0; i--) {
                     masa.getSiparisler().remove(selectedIndices[i]); // Seçili siparişleri kaldır
                 }
                 updateSiparisList(masa); // Listeyi güncelle
                 updateToplamFiyat(masa); // Toplam fiyatı güncelle
+
                 JOptionPane.showMessageDialog(frame, "Seçili siparişler silindi!");
             } else {
                 JOptionPane.showMessageDialog(frame, "Silmek için bir sipariş seçin!");
             }
-
         });
 
         // Toplam Fiyat Alanı
@@ -63,7 +61,7 @@ public class SiparisDurumuGUI {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                SwingUtilities.invokeLater(() -> updateSiparisList(masa));
+                SwingUtilities.invokeLater(() -> siparisList.repaint()); // Sadece listeyi yeniden çiz
             }
         }, 1000, 1000);
 
@@ -75,25 +73,38 @@ public class SiparisDurumuGUI {
     private void updateSiparisList(Masa masa) {
         listModel.clear(); // Listeyi sıfırla
         for (Siparis siparis : masa.getSiparisler()) {
-            String siparisText = String.format("%-20s %10s %10.2f TL", siparis.getKategori() + ": " + siparis.getUrun(),
-                    "", siparis.getFiyat());
-            listModel.addElement(siparisText);
+            String siparisText = String.format("%-20s %10s %10.2f TL",
+                    siparis.getKategori() + ": " + siparis.getUrun(), "", siparis.getFiyat());
+            listModel.addElement(siparisText); // Listeye öğeleri ekle
         }
 
-        siparisList.setCellRenderer(new DefaultListCellRenderer() {
+        siparisList.setCellRenderer(new ListCellRenderer<String>() {
+            private final DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
             @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
-                    boolean cellHasFocus) {
-                Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            public Component getListCellRendererComponent(JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component renderer = defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
                 Siparis siparis = masa.getSiparisler().get(index);
-                if (siparis.isHazırlandı()) {
-                    renderer.setBackground(new Color(200, 250, 200));
+
+                if (isSelected) {
+                    renderer.setBackground(list.getSelectionBackground());
+                    renderer.setForeground(list.getSelectionForeground());
                 } else {
-                    renderer.setBackground(new Color(250, 230, 200));
+                    if (siparis.isHazırlandı()) {
+                        renderer.setBackground(new Color(200, 250, 200));
+                    } else {
+                        renderer.setBackground(new Color(250, 230, 200));
+                    }
+                    renderer.setForeground(list.getForeground());
                 }
+
                 return renderer;
             }
         });
+
+        siparisList.revalidate();
+        siparisList.repaint();
     }
 
     private void updateToplamFiyat(Masa masa) {

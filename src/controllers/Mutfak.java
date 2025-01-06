@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import models.Masa;
 import models.Siparis;
 
@@ -39,27 +38,32 @@ public class Mutfak {
     // Yemeklerin hazırlanmasını simüle et
     public void yemekHazirla() {
         for (Siparis siparis : yemekler) {
-            int hazırlanmaSüresi = siparis.getHazırlanmasüresi();  // Süre saniye cinsinden
-            TimerTask timerTask = new TimerTask() {
-                private int kalanSüre = hazırlanmaSüresi;
+            // Eğer yemek daha önce hazırlanmışsa tekrar işlem yapma
+            if (siparis.isHazırlandı() || siparis.getKalanHazırlanmaSüresi() <= 0) {
+                continue;
+            }
     
+            // Yemek hazırlanma süresi için bir TimerTask oluştur
+            TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
+                    int kalanSüre = siparis.getKalanHazırlanmaSüresi();
                     if (kalanSüre > 0) {
                         kalanSüre -= 1;  // Her saniye kalan süreyi azalt
-                        siparis.setKalanHazırlanmaSüresi(kalanSüre);  // Kalan süreyi saniye cinsinden ayarla
+                        siparis.setKalanHazırlanmaSüresi(kalanSüre);  // Kalan süreyi güncelle
                     } else {
                         System.out.println(siparis.getUrun() + " hazırlandı!");
-                        siparis.setHazırlandı(true);
-                        this.cancel();  // TimerTask'ı iptal et
+                        siparis.setHazırlandı(true); // Yemek hazırlandı olarak işaretle
+                        this.cancel(); // TimerTask'ı iptal et
                     }
                 }
             };
+    
             Timer timer = new Timer();
-            timer.scheduleAtFixedRate(timerTask, 0, 1000);  // Her saniye çalıştır
+            timer.scheduleAtFixedRate(timerTask, 0, 1000); // Her saniyede bir çalıştır
         }
     }
-
+    
     // Yemeklerin listesini döndür
     public List<Siparis> getYemekler() {
         return yemekler;
