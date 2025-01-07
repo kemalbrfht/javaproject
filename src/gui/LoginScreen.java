@@ -4,47 +4,43 @@ import javax.swing.*;
 
 // Correct the import statements
 import models.Menu;
-import controllers.RestoranYonetimi;
+import controllers.RestaurantManagement;
 
-public class giris extends JFrame {
+public class LoginScreen extends JFrame {
 
-    public giris() {
-        // Pencere başlığını ayarla
-        setTitle("Restoran Uygulaması - Giriş");
+    public LoginScreen() {
+        // Set the window title
+        setTitle("Restaurant Application - Login");
 
-        // Uygulamayı tam ekran yap
+        // Set the application to full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Arka plan resmini ayarla
+        // Set the background image
         JLabel background = new JLabel();
         background.setLayout(new BorderLayout());
         setContentPane(background);
 
-        // Resmi ölçeklendirme ve ayarlama
+        // Scale and set the image
         try {
-            // Resmi ölçeklendirme ve ayarlama
             ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/background.png"));
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             Image scaledImage = originalIcon.getImage().getScaledInstance((int) screenSize.getWidth(), (int) screenSize.getHeight(), Image.SCALE_SMOOTH);
             background.setIcon(new ImageIcon(scaledImage));
         } catch (Exception e) {
-            System.err.println("Hata: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
             background.setIcon(new ImageIcon(getClass().getResource("/images/default.jpg")));
         }
 
-        // Üstüne yazılar ekle
-       
-
-        // Animasyonlu bir yazı ekle
-        JLabel animatedLabel = new JLabel("Hoş Geldiniz", SwingConstants.CENTER);
+        // Add text on top
+        JLabel animatedLabel = new JLabel("Welcome", SwingConstants.CENTER);
         animatedLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         animatedLabel.setForeground(Color.WHITE);
         background.add(animatedLabel, BorderLayout.CENTER);
 
-        // Start butonu ekle
-        JButton startButton = new JButton("BAŞLAT");
+        // Add a start button
+        JButton startButton = new JButton("START");
         startButton.setFont(new Font("Arial", Font.BOLD, 24));
         startButton.setForeground(Color.WHITE);
         startButton.setBackground(new Color(38, 34, 31));
@@ -56,7 +52,7 @@ public class giris extends JFrame {
         startButton2.setBackground(new Color(38, 34, 31));
         background.add(startButton2, BorderLayout.NORTH);
 
-        // Animasyon başlat
+        // Start the animation
         new Thread(() -> {
             try {
                 while (true) {
@@ -76,17 +72,15 @@ public class giris extends JFrame {
             }
         }).start();
 
-        // Buton için tıklama olayını ekle
+        // Add click event for the button
         startButton.addActionListener(e -> {
-            // Mevcut frame üzerinde MasalarGUI'yi çalıştır
-            RestoranYonetimi restoran = new RestoranYonetimi();
+            // Launch TablesGUI on the current frame
+            RestaurantManagement restaurant = new RestaurantManagement();
             Menu menu = new Menu();
-            new MasalarGUI(this, restoran, menu);
+            new TablesGUI(this, restaurant, menu);
         });
 
-
-        // Görünürlüğü ayarla
+        // Set visibility
         setVisible(true);
     }
 }
-
