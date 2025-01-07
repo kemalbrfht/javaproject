@@ -60,6 +60,7 @@ public class Masa {
 
     public void masaKapat() {
         dolu = false;
+        adisyonNotu = "";
         siparisler.clear();
         System.out.println("Masa " + masaNo + " kapatıldı.");
     }
